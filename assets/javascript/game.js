@@ -31,61 +31,71 @@
                 // Determines which key was pressed.
                 var userChoice = event.key;
                 console.log(userChoice);
-
-                // converts any choice to lowercase to simplify
-                var userGuess = userChoice.toLowerCase();
-                console.log(userGuess);
                 
-                // use a method to pass the variable userGuess TO the totalGuesses string/array
-                totalGuesses.push(userGuess);
-                console.log(totalGuesses);
-                
-                // Compares the two choices
-                // If the user choice matches the random computer choice, tallies a "Win"
-                if (userGuess === computerGuess) {
-                    wins++;
+                // here, we can discard any guesses that aren't a-z letters by running an if statement
+                // we also need to define a function or method that checks whether the var userChoice is PART of the alphabet array.
+                if (alphabet.includes(userChoice)) {
 
-                    // var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
-                    guessesLeft = 9;
-
-                    //clears the array "totalGuesses" so it will start reporting from an emtpy array
-                    totalGuesses.length = 0;
-                    // var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
-                    // console.log(computerGuess);
-
-                    resetComputerGuess();
-                    console.log(computerGuess);
-                }
-                
-                // If not, records a guess (subtracting one from the total of 9 possible per round) 
-                else {
-                    guessesLeft--;
-                }
-
-                if (guessesLeft === 0) {
+                    // converts any choice to lowercase to simplify
+                    var userGuess = userChoice.toLowerCase();
+                    console.log(userGuess);
                     
-                    // Tallies a "Loss," resets the guessesLeft to 9, clears the array "totalGuesses," and resets the variable computerGuess
-                    // note: we COULD create a "reset" function to run all these actions 
-                    losses++;
-                    guessesLeft = 9;
-                    totalGuesses.length = 0;
-                    resetComputerGuess();
-                    console.log(computerGuess);
-                    console.log(userGuess === computerGuess);
-                    console.log(guessesLeft);
+                    // use a method to pass the variable userGuess TO the totalGuesses string/array
+                    totalGuesses.push(userGuess);
+                    console.log(totalGuesses);
+                    
+                    // Compares the two choices
+                    // If the user choice matches the random computer choice, tallies a "Win"
+                    if (userGuess === computerGuess) {
+                        alert ("Congratulations! You correctly guessed " + computerGuess + "!")
+                        wins++;
+
+                        // var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+                        guessesLeft = 9;
+
+                        //clears the array "totalGuesses" so it will start reporting from an emtpy array
+                        totalGuesses.length = 0;
+                        // var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+                        // console.log(computerGuess);
+
+                        resetComputerGuess();
+                        console.log(computerGuess);
+                    }
+                    
+                    // If not, records a guess (subtracting one from the total of 9 possible per round) 
+                    else {
+                        guessesLeft--;
+                    }
+
+                    if (guessesLeft === 0) {
+                        
+                        alert("Sorry, you're evidently not a psychic. Try again?")
+                        // Tallies a "Loss," resets the guessesLeft to 9, clears the array "totalGuesses," and resets the variable computerGuess
+                        // note: we COULD create a "reset" function to run all these actions 
+                        losses++;
+                        guessesLeft = 9;
+                        totalGuesses.length = 0;
+                        resetComputerGuess();
+                        console.log(computerGuess);
+                        console.log(userGuess === computerGuess);
+                        console.log(guessesLeft);
+                    }
+
+                    // Keeps track of and displays the number of guesses remaining
+                    // Displays the current set of incorrect guesses
+                    // Creates a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses.
+                    var html =
+                    "<p>Your guesses so far: " + totalGuesses +
+                    "<p>You have " + guessesLeft + " guesses left." +
+                    "<p>wins: " + wins + "</p>" +
+                    "<p>losses: " + losses + "</p>";
+
+                    // Set the inner HTML contents of the #game div to our html string
+                    document.querySelector("#game").innerHTML = html;
                 }
-
-                // Keeps track of and displays the number of guesses remaining
-                // Displays the current set of incorrect guesses
-                // Creates a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses.
-                var html =
-                "<p>Your guesses so far: " + totalGuesses +
-                "<p>You have " + guessesLeft + " guesses left." +
-                "<p>wins: " + wins + "</p>" +
-                "<p>losses: " + losses + "</p>";
-
-                // Set the inner HTML contents of the #game div to our html string
-                document.querySelector("#game").innerHTML = html;
+                else {
+                    confirm("Please select a valid choice (a-z).");
+                    }
+                }
             }
-        }
-    })      
+        })  
